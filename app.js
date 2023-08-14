@@ -1,63 +1,18 @@
-// Create and Save a Record of a Model
-const mongoose = require("mongoose");
-const User = require("./User"); // Make sure the path to the User model is correct
+const express= require("express");
+const cors= require("cors");
+require("dotenv").config({path: "./.env"})
+require("./db");
+require("./User");
+const app = express();
 
-// Connect to MongoDB (replace 'your_database_url' with your actual MongoDB URL)
-mongoose.connect("mongodb://localhost/mongodb", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+app.use(cors());
+app.use(express.json());
 
-// Create and Save a Record of a Model
-const newUser = new User({
-  name: "rougui",
-  age: 10,
-  favoriteFoods: ["poulet", "Burger"],
-});
-/*
-newUser.save()
-  .then(savedUser => {
-    console.log("User saved:", savedUser);
-  })
-  .catch(error => {
-    console.error("Error saving user:", error);
-  });
+const port= process.env.PORT 
 
-
-// Create Many Records with model.create()
-const arrayOfPeople = [
-  { name: "Fatou", age: 15, favoriteFoods: ["Thiep bou dieun", "yassa"] },
-  { name: "samba", age: 34, favoriteFoods: ["yassa", "thiép"] },
-  { name: "coach", age: 20, favoriteFoods: ["cbon", "chicken"] },
-];
-
-User.create(arrayOfPeople)
-  .then((data) => {
-    console.log("Multiple records saved successfully:", data);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-
-// Use model.find() to search for people with a given name
-User.find({ name: "rougui" })
-  .then((user) => {
-    console.log('User with name "rougui":', user);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-
-// Use model.findOne() to find a person with a specific favorite food
-const foodToSearch = "poulet";
-
-User.findOne({ favoriteFoods: foodToSearch })
-  .then((user) => {
-    console.log(`User who likes ${foodToSearch}:`, user);
-  })
-  .catch((err) => {
-    console.error(err);
-  });*/
+app.listen(port , () => {
+    console.log(`server is renning on ${port}...`);
+})
 /*
 // Use model.findById() to search for a person by _id
 const userIdToSearch = "64d05f8df2952d94b1311e17";
